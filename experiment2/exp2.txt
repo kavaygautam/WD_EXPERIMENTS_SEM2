@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Salary Management System</title>
+<link rel="stylesheet" href="exp2.css">
+</head>
+<body>
+<div class="container">
+<h2>Employee Salary Management System</h2>
+<div class="inputs">
+<input type="text" id="name" placeholder="Employee Name">
+<input type="text" id="id" placeholder="Employee ID">
+<input type="number" id="salary" placeholder="Salary">
+<input type="text" id="dept" placeholder="Department">
+</div>
+<div class="buttons">
+<button onclick="addEmployee()">Add Employee</button>
+<button onclick="displayEmployees()">Display All</button>
+<button onclick="filterSalary()">Salary > 5000</button>
+</div>
+<div class="buttons">
+<button onclick="totalSalary()">Total Salary</button>
+<button onclick="averageSalary()">Average Salary</button>
+<button onclick="countDepartment()">Count by Department</button>
+</div>
+<div id="output"></div>
+</div>
+<script src="exp2.js"></script>
+</body>
+</html>
+
+body{
+font-family: Arial, Helvetica, sans-serif;
+background:#f2f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+width:600px;
+padding:25px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+
+h2{
+margin-bottom:20px;
+}
+
+.inputs{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-bottom:10px;
+}
+
+.inputs input{
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+#dept{
+grid-column:1/2;
+}
+
+.buttons{
+margin-top:5px;
+}
+
+button{
+background:#2e6d90;
+color:white;
+border:none;
+padding:8px 14px;
+margin:5px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e60;
+}
+
+#output{
+margin-top:20px;
+text-align:left;
+font-size:15px;
+}
+
+
+
+
+let employees = [];
+function addEmployee(){
+    let name = document.getElementById("name").value;
+    let empId = document.getElementById("id").value;
+    let salary = parseFloat(document.getElementById("salary").value);
+    let depart = document.getElementById("dept").value;
+
+    if(name === "" || empId === "" || isNaN(salary) || depart === ""){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let employee = {
+        name: name,
+        id: empId,
+        salary: salary,
+        department: depart
+    };
+
+    employees.push(employee);
+    alert("Employee added successfully");
+    document.getElementById("name").value = "";
+    document.getElementById("id").value = "";
+    document.getElementById("salary").value = "";
+    document.getElementById("dept").value = "";
+}
+
+function displayEmployees(){
+
+    let output = "<h3>All Employees</h3>";
+
+    employees.forEach((emp) => {
+
+        output += `
+        Name: ${emp.name} |
+        ID: ${emp.id} |
+        Salary: ₹${emp.salary} |
+        Dept: ${emp.department} <br>
+        `;
+
+    });
+
+    document.getElementById("output").innerHTML = output;
+}
+
+function filterSalary(){
+
+    let filtered = employees.filter((emp) => emp.salary > 5000);
+
+    let output = "<h3>Employees with Salary > ₹5000</h3>";
+
+    filtered.forEach((emp)=>{
+
+        output += `
+        Name: ${emp.name} |
+        Salary: ₹${emp.salary} <br>
+        `;
+
+    });
+
+    document.getElementById("output").innerHTML = output;
+}
+
+function totalSalary(){
+
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+
+    document.getElementById("output").innerHTML =
+    "<h3>Total Salary Payout: ₹" + total + "</h3>";
+}
+
+function averageSalary(){
+
+    if(employees.length === 0){
+        document.getElementById("output").innerHTML =
+        "<h3>No employees available</h3>";
+        return;
+    }
+
+    let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+
+    let avg = total / employees.length;
+
+    document.getElementById("output").innerHTML =
+    "<h3>Average Salary: ₹" + avg.toFixed(2) + "</h3>";
+}
+function countDepartment(){
+    let deptName = prompt("Enter Department Name:");
+
+    let count = employees.filter(
+        (emp) => emp.department.toLowerCase() === deptName.toLowerCase()
+    ).length;
+
+    document.getElementById("output").innerHTML =
+    "<h3>Employees in " + deptName + ": " + count + "</h3>";
+}
