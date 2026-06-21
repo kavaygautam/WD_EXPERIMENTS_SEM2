@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 3 - DOM Manipulation</title>
+    <link rel="stylesheet" href="exp3.css">
+</head>
+<body>
+    <div class="outer-box">
+        <div class="container">
+            <h1 id="heading">Welcome to JavaScript Lab</h1>
+
+            <input type="text" id="textInput" placeholder="Enter new heading text">
+
+            <div class="buttons">
+                <button id="changeHeading">Change Heading</button>
+                <button id="changeBackground">Change Background</button>
+                <button id="increaseFont">Increase Font Size</button>
+                <button id="toggleParagraph">Show/Hide Paragraph</button>
+                <button id="resetPage">Reset</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="exp3.js"></script>
+</body>
+</html>
+
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #efefef;
+    text-align: center;
+}
+
+.title{
+    margin-top: 16px;
+    margin-bottom: 30px;
+    font-family: serif;
+    font-size: 24px;
+}
+
+.container{
+    width: 650px;
+    margin: auto;
+    background-color: white;
+    border-radius: 14px;
+    padding: 45px 35px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.25);
+}
+
+h1{
+    margin-top: 0;
+    margin-bottom: 28px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+input{
+    width: 290px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #999;
+    margin-bottom: 25px;
+}
+
+.buttons{
+    margin-bottom: 25px;
+}
+
+button{
+    background-color: pink;
+    color: black;
+    border: none;
+    padding: 10px 16px;
+    margin: 6px 6px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+button:hover{
+    background-color: hotpink;
+    color: white;
+}
+
+p{
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+
+const heading = document.getElementById("heading");
+const input = document.getElementById("textInput");
+const paragraph = document.getElementById("paragraph");
+const container = document.querySelector(".container");
+
+let currentFontSize = 18;
+let backgroundChanged = false;
+
+document.getElementById("changeHeading").addEventListener("click", function(){
+    if(input.value.trim() !== ""){
+        heading.textContent = input.value;
+    }else{
+        alert("Please enter heading text");
+    }
+});
+
+document.getElementById("changeBackground").addEventListener("click", function(){
+    if(!backgroundChanged){
+        container.style.backgroundColor = "#ffe6f2";
+        backgroundChanged = true;
+    }else{
+        container.style.backgroundColor = "white";
+        backgroundChanged = false;
+    }
+});
+
+document.getElementById("increaseFont").addEventListener("click", function(){
+    currentFontSize += 2;
+    paragraph.style.fontSize = currentFontSize + "px";
+});
+
+document.getElementById("toggleParagraph").addEventListener("click", function(){
+    if(paragraph.style.display === "none"){
+        paragraph.style.display = "block";
+    }else{
+        paragraph.style.display = "none";
+    }
+});
+
+document.getElementById("resetPage").addEventListener("click", function(){
+    heading.textContent = "Welcome to JavaScript Lab";
+    input.value = "";
+    paragraph.style.display = "block";
+    currentFontSize = 18;
+    paragraph.style.fontSize = "18px";
+    container.style.backgroundColor = "white";
+    backgroundChanged = false;
+});
+

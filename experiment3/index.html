@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 3 - DOM Manipulation</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="exp3.css">
+</head>
+
+<body>
+
+<div class="outer-box">
+    <div class="container">
+        <h1 id="heading">Welcome to JavaScript Lab</h1>
+
+        <input type="text" id="textInput" placeholder="Enter new heading text">
+
+        <div class="buttons">
+            <button id="changeHeading">Change Heading</button>
+            <button id="changeBackground">Change Background</button>
+            <button id="increaseFont">Increase Font Size</button>
+            <button id="toggleParagraph">Show/Hide Paragraph</button>
+            <button id="resetPage">Reset</button>
+        </div>
+
+        <!-- Added missing paragraph (IMPORTANT FIX) -->
+        <p id="paragraph">This is a sample paragraph for DOM manipulation.</p>
+    </div>
+</div>
+
+<!-- Link JS -->
+<script src="exp3.js"></script>
+
+</body>
+</html>
